@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dilemas Digitais & Soluções em Código</title>
+    <title>Sarah Eurich | 50 Dilemas Digitais & Soluções Tech</title>
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --accent-color: #58a6ff;
-            --accent-hover: #1f6feb;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --border-color: #30363d;
-            --error-color: #f85149;
+            --bg-dark: #0a0c10;
+            --card-bg: rgba(22, 27, 34, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-cyan: #00f2fe;
+            --accent-purple: #7928ca;
+            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --glass-glow: 0 8px 32px 0 rgba(0, 242, 254, 0.08);
             --success-color: #3fb950;
         }
 
@@ -22,235 +23,283 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             line-height: 1.6;
-            padding-bottom: 40px;
+            padding-bottom: 80px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(121, 40, 202, 0.05) 0%, transparent 20%);
         }
 
         header {
-            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
-            border-bottom: 1px solid var(--border-color);
             text-align: center;
-            padding: 60px 20px;
+            padding: 100px 20px 60px;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: var(--accent-gradient);
+        }
+
+        .author-badge {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            font-size: 3rem;
+            background: linear-gradient(to right, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
         }
 
         header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 20px;
-        }
-
-        .author-tag {
-            display: inline-block;
-            background-color: rgba(88, 166, 255, 0.1);
-            color: var(--accent-color);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(88, 166, 255, 0.2);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto;
         }
 
         main {
-            max-width: 900px;
-            margin: 40px auto;
+            max-width: 1100px;
+            margin: 60px auto 0;
             padding: 0 20px;
-            display: flex;
-            flex-direction: column;
+        }
+
+        .grid-dilemas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
         }
 
         article {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 28px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         article:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: var(--glass-glow);
         }
 
         .dilema-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            gap: 10px;
         }
 
         .dilema-header h2 {
-            font-size: 1.4rem;
-            color: var(--text-primary);
+            font-size: 1.2rem;
+            color: var(--text-main);
+            font-weight: 600;
         }
 
         .tag-categoria {
-            background-color: var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .descricao {
-            color: var(--text-secondary);
+            color: var(--text-muted);
+            font-size: 0.95rem;
             margin-bottom: 20px;
         }
 
         .solucao-box {
-            background-color: var(--bg-color);
-            border-left: 4px solid var(--accent-color);
+            background: rgba(10, 12, 16, 0.6);
+            border-left: 2px solid var(--accent-cyan);
             padding: 15px;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 10px 0;
             margin-bottom: 20px;
         }
 
         .solucao-box h3 {
-            font-size: 1rem;
-            color: var(--accent-color);
-            margin-bottom: 5px;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .solucao-box p {
+            color: var(--text-main);
+            font-size: 0.9rem;
         }
 
         .actions {
             display: flex;
-            gap: 10px;
+            align-items: center;
         }
 
         .btn-like {
-            background-color: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background-color 0.2s ease;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
         }
 
         .btn-like:hover {
-            background-color: var(--border-color);
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--accent-cyan);
         }
 
         .btn-like.liked {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
+            background: var(--accent-cyan);
+            color: var(--bg-dark);
+            border-color: var(--accent-cyan);
+            font-weight: bold;
         }
 
-        /* --- Estilos do Formulário de Envio --- */
+        /* --- Seção do Formulário Futurista --- */
         .form-section {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 80px;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--glass-glow);
         }
 
         .form-section h2 {
-            color: var(--accent-color);
-            font-size: 1.6rem;
-            margin-bottom: 8px;
+            font-size: 1.8rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
         }
 
         .form-section p {
-            color: var(--text-secondary);
-            margin-bottom: 25px;
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group-full {
+            grid-column: span 2;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-bottom: 20px;
-            position: relative;
+            margin-bottom: 15px;
         }
 
         .form-group label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 12px 14px;
-            border-radius: 8px;
+            background: rgba(10, 12, 16, 0.8);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 14px 18px;
+            border-radius: 10px;
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            font-family: inherit;
+            transition: all 0.2s ease;
         }
 
-        /* Validação HTML/CSS no estado ativo */
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
-        }
-
-        /* Indicador de campo inválido após interação */
-        .form-group input:not(:placeholder-shown):invalid,
-        .form-group textarea:not(:placeholder-shown):invalid {
-            border-color: var(--error-color);
-        }
-
-        .form-group input:not(:placeholder-shown):valid,
-        .form-group textarea:not(:placeholder-shown):valid {
-            border-color: var(--success-color);
-        }
-
-        .form-hint {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
 
         .btn-submit {
-            background-color: var(--accent-color);
-            color: #0d1117;
-            font-weight: 600;
+            background: var(--accent-gradient);
+            color: var(--bg-dark);
+            font-weight: bold;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 1rem;
             width: 100%;
-            transition: background-color 0.2s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn-submit:hover {
-            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
         }
 
         footer {
             text-align: center;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-            padding-top: 30px;
-            margin-top: 50px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--card-border);
+            padding-top: 40px;
+            margin-top: 80px;
             font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group-full { grid-column: span 1; }
+            header h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -258,137 +307,166 @@
 <body>
 
     <header>
-        <h1>Dilemas Digitais & Tech</h1>
-        <p>Como a tecnologia, a lógica e o código podem solucionar os grandes desafios do mundo conectado.</p>
-        <div class="author-tag">Criado por Alexandra Terezinha Kapusinski</div>
+        <div class="author-badge">Desenvolvido por Sarah Eurich</div>
+        <h1>50 Dilemas Digitais & Soluções Tech</h1>
+        <p>Mapeamento de desafios do ecossistema conectado e propostas de resolução através da arquitetura de código.</p>
     </header>
 
     <main>
+        <div class="grid-dilemas">
 
-        <!-- Card 1 -->
-        <article>
-            <div class="dilema-header">
-                <h2>1. Excesso de Notificações</h2>
-                <span class="tag-categoria">Produtividade</span>
-            </div>
-            <p class="descricao">A constante interrupção por alertas compromete a atenção, gera ansiedade e reduz o foco em tarefas profundas.</p>
-            <div class="solucao-box">
-                <h3>Solução com Programação</h3>
-                <p>Criação de scripts e APIs para filtragem inteligente de mensagens, consolidando notificações em resumos agendados (Digest APIs) e ativando modos de foco automatizados com base na rotina do usuário.</p>
-            </div>
-            <div class="actions">
-                <button class="btn-like">❤️ <span>0</span></button>
-            </div>
-        </article>
+            <!-- Os 50 dilemas mapeados e catalogados -->
+            <script>
+                const dilemas = [
+                    { t: "1. Excesso de Notificações", c: "Produtividade", d: "Alertas constantes fragmentam o foco e geram fadiga cognitiva.", s: "APIs de filtragem inteligente e resumo assíncrono programado." },
+                    { t: "2. Bolhas Algorítmicas", c: "Algoritmos", d: "Feeds mostram apenas visões convergentes, gerando polarização.", s: "Algoritmos de ordenação baseados em diversidade e entropia de dados." },
+                    { t: "3. Rastreamento Ostensivo", c: "Privacidade", d: "Coleta indevida de dados comportamentais sem consentimento claro.", s: "Implementação de Zero-Knowledge Proofs (ZKP) e criptografia E2EE." },
+                    { t: "4. Vício em Rolagem Infinita", c: "UX/UI", d: "Interfaces projetadas sem ponto de parada natural induzem ao uso compulsivo.", s: "Padrões de UI com páginas explícitas e alertas de tempo em tela." },
+                    { t: "5. Deepfakes & Desinformação", c: "Segurança", d: "Conteúdos multimídia manipulados por IA enganam usuários.", s: "Assinaturas digitais de mídia e validação em registros imutáveis." },
+                    { t: "6. Obsolecência Programada", c: "Sustentabilidade", d: "Sistemas atualizados tornam hardwares funcionais obsoletos rapidamente.", s: "Desenvolvimento de software ultraleve com retrocompatibilidade." },
+                    { t: "7. Dark Patterns em Cancelamentos", c: "Ética", d: "Interfaces dificultam intencionalmente o cancelamento de serviços.", s: "Padrões de design abertos e APIs de cancelamento em um único clique." },
+                    { t: "8. Alucinação de IA", c: "Inteligência Artificial", d: "Modelos gerativos entregam fatos incorretos com alto nível de confiança.", s: "Uso de arquiteturas RAG (Retrieval-Augmented Generation) para checagem." },
+                    { t: "9. Exclusão Digital e Acessibilidade", c: "Acessibilidade", d: "Interfaces complexas impedem o uso por PCDs ou idosos.", s: "Aplicação rigorosa de normas WCAG 2.1 e testes automatizados de ARIA." },
+                    { t: "10. Sobrecarga de E-mails", c: "Comunicação", d: "Caixas de entrada lotadas inviabilizam a comunicação prioritária.", s: "Classificação local com modelos leves de Machine Learning (On-device)." },
+                    { t: "11. Vazamento de Credenciais", c: "Segurança", d: "Senhas fracas ou reutilizadas expõem contas a ataques de força bruta.", s: "Adoção do padrão WebAuthn/Passkeys eliminando a necessidade de senhas." },
+                    { t: "12. Sobrecarga de Frameworks", c: "Engenharia", d: "Sites pesados que consomem gigabytes de RAM desnecessariamente.", s: "Aposta em Vanilla JavaScript, componentes nativos e CSS compilado mínimo." },
+                    { t: "13. Monitoramento no Trabalho", c: "Privacidade", d: "Softwares espiões medem produtividade por movimentos de mouse.", s: "Sistemas de gestão focados na entrega de commits e metas de projeto." },
+                    { t: "14. Falta de Portabilidade de Dados", c: "Vendor Lock-in", d: "Dificuldade de migrar dados entre plataformas concorrentes.", s: "APIs abertas de exportação de dados em formatos estruturados (JSON/CSV)." },
+                    { t: "15. Viés de Algoritmo em Seleções", c: "IA & Ética", d: "Avaliadores de currículo por IA discriminam minorias ativas.", s: "Auditoria de viés em datasets de treino e anonimização prévia de candidatos." },
+                    { t: "16. Consumo Energético de Data Centers", c: "Verde Tech", d: "Processamento em nuvem consome volumes massivos de energia elélica.", s: "Otimização de rotinas de código para rodar em nós energeticamente limpos." },
+                    { t: "17. Fraudes em E-Commerce", c: "Fintech", d: "Golpes de engenharia social aplicados em checkout online.", s: "Análise comportamental em tempo real com regras antifraude inteligentes." },
+                    { t: "18. Captchas Inacessíveis", c: "UX/UI", d: "Desafios visuais impossíveis que bloqueiam usuários legítimos.", s: "Validação invisível por comportamento e tokens de atestação de hardware." },
+                    { t: "19. Dependência excessiva de Nuvem", c: "Infraestrutura", d: "Quedas globais de provedores param serviços essenciais no mundo todo.", s: "Estratégia de implantação Multi-cloud e arquiteturas Offline-First." },
+                    { t: "20. Rastreamento por Wi-Fi Público", c: "Segurança", d: "Sniffing de dados em redes abertas não criptografadas.", s: "Conexões obrigatórias via HTTPS com suporte strict HSTS e VPNs integradas." },
+                    { t: "21. Fadiga de Assinaturas (SaaS)", c: "Economia Digital", d: "Cobranças recorrentes esquecidas geram desperdício financeiro.", s: "Dashboard unificado para controle e notificação de renovações ativas." },
+                    { t: "22. Spam de Chamadas telefônicas", c: "Telecom", d: "Robôs realizam milhões de chamadas indesejadas por dia.", s: "Protocolos de validação de origem de chamadas (STIR/SHAKEN)." },
+                    { t: "23. Perda de Contexto em Chatbots", c: "Atendimento", d: "Atendimento automatizado entra em loops e não resolve demandas.", s: "Sistemas híbridos com transição rápida e fluida para atendentes humanos." },
+                    { t: "24. Ciberbullying & Discurso de Ódio", c: "Moderacao", d: "Agressões virtuais disseminadas em alta velocidade nas redes.", s: "Sistemas de detecção de toxicidade contextual via PLN (Processamento de Linguagem Natural)." },
+                    { t: "25. Direitos Autorais na IA", c: "Propriedade", d: "Treino de modelos em obras sem atribuição ou compensação ao autor.", s: "Mecanismos opt-out nos robôs de raspagem e registros em C2PA." },
+                    { t: "26. Perda de Memória Histórica Web", c: "Preservação", d: "Páginas antigas sumindo devido ao encerramento de domínios.", s: "Protocolos de arquivamento descentralizado de documentos digitais." },
+                    { t: "27. Incompatibilidade de APIs", c: "Integração", d: "APIs legadas sem documentação que quebram fluxos corporativos.", s: "Adoção de especificações OpenAPI (Swagger) e Versionamento Semântico." },
+                    { t: "28. Manipulação de Resenhas", c: "Reputação", d: "Avaliações falsas infladas por fazendas de cliques.", s: "Algoritmos de verificação de compra confirmada e análise do grafo de contas." },
+                    { t: "29. Roubo de Identidade Digital", c: "Segurança", d: "Criação de perfis falsos utilizando fotos e dados reais.", s: "Sistemas de Identidade Descentralizada (DID) com validação criptográfica." },
+                    { t: "30. Monopólio de Lojas de Apps", c: "Mercado Tech", d: "Taxas abusivas impostas a pequenos desenvolvedores independentes.", s: "Aposta em Progressive Web Apps (PWAs) instaláveis sem intermediários." },
+                    { t: "31. Notícias Falsas em Grupos Fechados", c: "Sociedade", d: "Mensagens virais sem checagem de fatos em aplicativos de mensagem.", s: "Limites de reencaminhamento de mensagens e marcação de links suspeitos." },
+                    { t: "32. Sobrecarga de Notificações em Equipes", c: "Trabalho", d: "Canais corporativos de chat sobrecarregam funcionários fora do horário.", s: "Configuração de mensagens diferidas e modos de silenciamento automático." },
+                    { t: "33. Vulnerabilidade em IoT", c: "Dispositivos", d: "Dispositivos inteligentes sem atualização viram portas de entrada.", s: "Firmwares com atualização automática e isolamento em redes VLAN." },
+                    { t: "34. Falta de Transparência de Preços", c: "E-Commerce", d: "Preços dinâmicos que mudam de acordo com a localização do usuário.", s: "Ferramentas transparentes de histórico e comparação de preços." },
+                    { t: "35. Desperdício de Hardware Eletrônico", c: "Lixo Eletrônico", d: "Descarte incorreto de dispositivos que continham dados sensíveis.", s: "Scripts de sanitização total e irrecuperável de memória (Wiping)." },
+                    { t: "36. Captura Indevida de Áudio", c: "Privacidade", d: "Assistentes virtuais gravando conversas sem gatilho de ativação.", s: "Módulos de áudio físicos desligáveis e processamento de voz local." },
+                    { t: "37. Falta de Padrões para Casa Inteligente", c: "Conectividade", d: "Dispositivos de fabricantes diferentes que não se comunicam.", s: "Adoção global do padrão aberto de interoperabilidade Matter." },
+                    { t: "38. Engenharia Social (Phishing)", c: "Segurança", d: "E-mails clonados induzem transferência de valores bancários.", s: "Configuração rigorosa de regras SPF, DKIM e DMARC no servidor de e-mail." },
+                    { t: "39. Dependência de Bibliotecas Externas", c: "Desenvolvimento", d: "Projetos que quebram quando uma pequena biblioteca é descontinuada.", s: "Auditoria contínua de dependências com ferramentas de SCA e redução do 'npm bloated'." },
+                    { t: "40. Monolitos de Difícil Manutenção", c: "Arquitetura", d: "Códigos gigantescos que impedem a evolução acelerada de sistemas.", s: "Refatoração para microsserviços orientados a eventos (Event-Driven)." },
+                    { t: "41. Interrupções em Transmissões ao Vivo", c: "Streaming", d: "Congestionamento de rede em eventos com alto volume de audiência.", s: "Uso de Edge Computing e CDNs distribuídas para distribuição de carga." },
+                    { t: "42. Geolocalização Não Autorizada", c: "Mobilidade", d: "Apps que solicitam localização exata sem necessidade operacional.", s: "Acesso limitado a permissões aproximadas de localização em nível de OS." },
+                    { t: "43. Falhas em Pagamentos por Aproximação", c: "Finanças", d: "Cobranças indevidas ou duplas por leitura acidental de cartões.", s: "Validações biométricas duplas em wallets digitais para autorizar transações." },
+                    { t: "44. Armazenamento Ineficiente de Logs", c: "DevOps", d: "Logs desordenados ocupam terabytes de espaço sem utilidade prática.", s: "Estruturação de Logs em formato JSON comprimido com rotação automática." },
+                    { t: "45. Perda de Foco em Aprendizado Online", c: "EdTech", d: "Alunos abandonam cursos EAD por falta de interatividade.", s: "Gamificação baseada em progresso por código e feedbacks instantâneos." },
+                    { t: "46. Uso Incorreto de Metadados", c: "Indexação", d: "Buscas internas em sites que nunca encontram o produto desejado.", s: "Implementação de busca vetorial orientada a termos semânticos." },
+                    { t: "47. Exposição acidental de Chaves de API", c: "Segurança", d: "Desenvolvedores enviam credenciais privadas para repositórios públicos.", s: "Scanners automáticos de segredos no git hook pré-commit." },
+                    { t: "48. Páginas Não Responsivas", c: "Mobile", d: "Sites que quebram totalmente ao serem abertos em telas menores.", s: "Abordagem Mobile-First estrita com unidades relativas (rem/vh) e CSS Grid." },
+                    { t: "49. Bloqueadores de Anúncios Agressivos", c: "Monetização", d: "Criadores de conteúdo perdem renda por bloqueio total de anúncios.", s: "Modelos de micropagamentos automatizados via Web Monetization API." },
+                    { t: "50. Falta de Testes Automatizados", c: "Qualidade", d: "Sistemas lançados com bugs graves que afetam usuários finais.", s: "Integração contínua (CI/CD) reforçada com testes unitários e E2E." }
+                ];
 
-        <!-- Card 2 -->
-        <article>
-            <div class="dilema-header">
-                <h2>2. Bolhas de Informação</h2>
-                <span class="tag-categoria">Algoritmos</span>
-            </div>
-            <p class="descricao">Algoritmos de recomendação tendem a mostrar apenas contéudos que confirmam visões de mundo pré-existentes, limitando o debate saudável.</p>
-            <div class="solucao-box">
-                <h3>Solução com Programação</h3>
-                <p>Desenvolvimento de algoritmos de recomendação baseados em diversidade de fontes e implementação de seletores de feed transparentes, onde o usuário escolhe os critérios de exibição do conteúdo.</p>
-            </div>
-            <div class="actions">
-                <button class="btn-like">❤️ <span>0</span></button>
-            </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article>
-            <div class="dilema-header">
-                <h2>3. Segurança de Dados Pessoais</h2>
-                <span class="tag-categoria">Privacidade</span>
-            </div>
-            <p class="descricao">O rastreamento excessivo de dados compromete a privacidade dos usuários e expõe informações confidenciais a vazamentos.</p>
-            <div class="solucao-box">
-                <h3>Solução com Programação</h3>
-                <p>Uso de criptografia ponta a ponta (E2EE), implementação de arquiteturas <em>Zero-Trust</em> e sanitização rigorosa de entradas de dados em sistemas web.</p>
-            </div>
-            <div class="actions">
-                <button class="btn-like">❤️ <span>0</span></button>
-            </div>
-        </article>
+                const grid = document.querySelector('.grid-dilemas');
+                
+                dilemas.forEach(d => {
+                    const card = document.createElement('article');
+                    card.innerHTML = `
+                        <div>
+                            <div class="dilema-header">
+                                <h2>${d.t}</h2>
+                                <span class="tag-categoria">${d.c}</span>
+                            </div>
+                            <p class="descricao">${d.d}</p>
+                            <div class="solucao-box">
+                                <h3>Solução em Código</h3>
+                                <p>${d.s}</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-like">❤️ <span>0</span></button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            </script>
+        </div>
 
         <!-- Formulário de Envio -->
         <section class="form-section">
-            <h2>Sugerir Novo Dilema Digital</h2>
-            <p>Conhece um problema no mundo digital que pode ser resolvido com código? Envie sua proposta para o blog.</p>
+            <h2>Sugerir Novo Dilema Tech</h2>
+            <p>Envie um problema do ecossistema digital para ser analisado e solucionado no catálogo.</p>
 
-            <form action="#" method="POST">
+            <form action="#" method="POST" class="form-grid">
                 <div class="form-group">
-                    <label for="nome">Seu Nome</label>
-                    <input type="text" id="nome" name="nome" placeholder="Ex: Alexandra Kapusinski" required minlength="3">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Ex: Sarah Eurich" required minlength="3">
                 </div>
 
                 <div class="form-group">
-                    <label for="email">E-mail de Contato</label>
-                    <input type="email" id="email" name="email" placeholder="nome@exemplo.com" required>
-                    <span class="form-hint">Insira um e-mail válido para receber feedback da publicação.</span>
+                    <label for="email">E-mail Profissional</label>
+                    <input type="email" id="email" placeholder="nome@empresa.com" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="categoria">Categoria do Dilema</label>
-                    <select id="categoria" name="categoria" required>
-                        <option value="" disabled selected hidden>Selecione uma categoria...</option>
-                        <option value="produtividade">Produtividade</option>
-                        <option value="algoritmos">Algoritmos & IA</option>
-                        <option value="privacidade">Privacidade & Segurança</option>
-                        <option value="redes-sociais">Redes Sociais</option>
-                        <option value="outros">Outros</option>
+                <div class="form-group form-group-full">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" required>
+                        <option value="" disabled selected hidden>Selecione uma área...</option>
+                        <option value="Produtividade">Produtividade</option>
+                        <option value="Algoritmos">Algoritmos & IA</option>
+                        <option value="Privacidade">Privacidade & Segurança</option>
+                        <option value="UX/UI">UX/UI</option>
+                        <option value="Engenharia">Engenharia de Software</option>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group form-group-full">
                     <label for="titulo">Título do Dilema</label>
-                    <input type="text" id="titulo" name="titulo" placeholder="Ex: Vício em rolagem infinita (Infinite Scroll)" required minlength="5" maxlength="80">
+                    <input type="text" id="titulo" placeholder="Ex: Fragmentação de APIs" required minlength="5">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group form-group-full">
                     <label for="descricao">Descrição do Problema</label>
-                    <textarea id="descricao" name="descricao" rows="4" placeholder="Explique resumidamente qual é o impacto desse problema..." required minlength="20"></textarea>
+                    <textarea id="descricao" rows="3" placeholder="Explique os impactos no ecossistema..." required minlength="15"></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label for="solucao">Proposta de Solução Tech (Opcional)</label>
-                    <textarea id="solucao" name="solucao" rows="3" placeholder="Qual lógica, código ou ferramenta poderia amenizar esse dilema?"></textarea>
+                <div class="form-group form-group-full">
+                    <label for="solucao">Proposta de Solução Tech</label>
+                    <textarea id="solucao" rows="2" placeholder="Descreva a arquitetura de código ideal..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar Proposta</button>
+                <div class="form-group-full">
+                    <button type="submit" class="btn-submit">Enviar para o Catálogo</button>
+                </div>
             </form>
         </section>
-
     </main>
 
     <footer>
-        <p>© 2026 Dilemas Digitais | Desenvolvido por Alexandra Terezinha Kapusinski</p>
+        <p>© 2026 Dilemas Digitais | Projetado e Desenvolvido por Sarah Eurich</p>
     </footer>
 
     <script>
-        const botoes = document.querySelectorAll(".btn-like");
-        
-        botoes.forEach(function (botao) {
-            let curtiu = false;
-            
-            botao.addEventListener("click", function () {
-                let contador = botao.querySelector("span");
-                
-                if (!curtiu) {
-                    contador.textContent = parseInt(contador.textContent) + 1;
-                    botao.classList.add("liked");
-                    curtiu = true;
+        // Lógica de curtidas em tempo real
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.btn-like')) {
+                const btn = e.target.closest('.btn-like');
+                const span = btn.querySelector('span');
+                let count = parseInt(span.textContent);
+
+                if (!btn.classList.contains('liked')) {
+                    btn.classList.add('liked');
+                    span.textContent = count + 1;
                 } else {
-                    contador.textContent = parseInt(contador.textContent) - 1;
-                    botao.classList.remove("liked");
-                    curtiu = false;
+                    btn.classList.remove('liked');
+                    span.textContent = count - 1;
                 }
-            });
+            }
         });
     </script>
-
 </body>
 
 </html>
