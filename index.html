@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilemas Digitais & Soluções em Código</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-color: #58a6ff;
+            --accent-hover: #1f6feb;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --border-color: #30363d;
+            --error-color: #f85149;
+            --success-color: #3fb950;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .author-tag {
+            display: inline-block;
+            background-color: rgba(88, 166, 255, 0.1);
+            color: var(--accent-color);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        article {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        article:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .dilema-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .dilema-header h2 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+        }
+
+        .tag-categoria {
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .descricao {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .solucao-box {
+            background-color: var(--bg-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .solucao-box h3 {
+            font-size: 1rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-like {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-like:hover {
+            background-color: var(--border-color);
+        }
+
+        .btn-like.liked {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* --- Estilos do Formulário de Envio --- */
+        .form-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .form-section h2 {
+            color: var(--accent-color);
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .form-section p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: inherit;
+        }
+
+        /* Validação HTML/CSS no estado ativo */
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+        }
+
+        /* Indicador de campo inválido após interação */
+        .form-group input:not(:placeholder-shown):invalid,
+        .form-group textarea:not(:placeholder-shown):invalid {
+            border-color: var(--error-color);
+        }
+
+        .form-group input:not(:placeholder-shown):valid,
+        .form-group textarea:not(:placeholder-shown):valid {
+            border-color: var(--success-color);
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: #0d1117;
+            font-weight: 600;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Dilemas Digitais & Tech</h1>
+        <p>Como a tecnologia, a lógica e o código podem solucionar os grandes desafios do mundo conectado.</p>
+        <div class="author-tag">Criado por Alexandra Terezinha Kapusinski</div>
+    </header>
+
+    <main>
+
+        <!-- Card 1 -->
+        <article>
+            <div class="dilema-header">
+                <h2>1. Excesso de Notificações</h2>
+                <span class="tag-categoria">Produtividade</span>
+            </div>
+            <p class="descricao">A constante interrupção por alertas compromete a atenção, gera ansiedade e reduz o foco em tarefas profundas.</p>
+            <div class="solucao-box">
+                <h3>Solução com Programação</h3>
+                <p>Criação de scripts e APIs para filtragem inteligente de mensagens, consolidando notificações em resumos agendados (Digest APIs) e ativando modos de foco automatizados com base na rotina do usuário.</p>
+            </div>
+            <div class="actions">
+                <button class="btn-like">❤️ <span>0</span></button>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article>
+            <div class="dilema-header">
+                <h2>2. Bolhas de Informação</h2>
+                <span class="tag-categoria">Algoritmos</span>
+            </div>
+            <p class="descricao">Algoritmos de recomendação tendem a mostrar apenas contéudos que confirmam visões de mundo pré-existentes, limitando o debate saudável.</p>
+            <div class="solucao-box">
+                <h3>Solução com Programação</h3>
+                <p>Desenvolvimento de algoritmos de recomendação baseados em diversidade de fontes e implementação de seletores de feed transparentes, onde o usuário escolhe os critérios de exibição do conteúdo.</p>
+            </div>
+            <div class="actions">
+                <button class="btn-like">❤️ <span>0</span></button>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article>
+            <div class="dilema-header">
+                <h2>3. Segurança de Dados Pessoais</h2>
+                <span class="tag-categoria">Privacidade</span>
+            </div>
+            <p class="descricao">O rastreamento excessivo de dados compromete a privacidade dos usuários e expõe informações confidenciais a vazamentos.</p>
+            <div class="solucao-box">
+                <h3>Solução com Programação</h3>
+                <p>Uso de criptografia ponta a ponta (E2EE), implementação de arquiteturas <em>Zero-Trust</em> e sanitização rigorosa de entradas de dados em sistemas web.</p>
+            </div>
+            <div class="actions">
+                <button class="btn-like">❤️ <span>0</span></button>
+            </div>
+        </article>
+
+        <!-- Formulário de Envio -->
+        <section class="form-section">
+            <h2>Sugerir Novo Dilema Digital</h2>
+            <p>Conhece um problema no mundo digital que pode ser resolvido com código? Envie sua proposta para o blog.</p>
+
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nome">Seu Nome</label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: Alexandra Kapusinski" required minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail de Contato</label>
+                    <input type="email" id="email" name="email" placeholder="nome@exemplo.com" required>
+                    <span class="form-hint">Insira um e-mail válido para receber feedback da publicação.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoria do Dilema</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="" disabled selected hidden>Selecione uma categoria...</option>
+                        <option value="produtividade">Produtividade</option>
+                        <option value="algoritmos">Algoritmos & IA</option>
+                        <option value="privacidade">Privacidade & Segurança</option>
+                        <option value="redes-sociais">Redes Sociais</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="titulo">Título do Dilema</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ex: Vício em rolagem infinita (Infinite Scroll)" required minlength="5" maxlength="80">
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição do Problema</label>
+                    <textarea id="descricao" name="descricao" rows="4" placeholder="Explique resumidamente qual é o impacto desse problema..." required minlength="20"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="solucao">Proposta de Solução Tech (Opcional)</label>
+                    <textarea id="solucao" name="solucao" rows="3" placeholder="Qual lógica, código ou ferramenta poderia amenizar esse dilema?"></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Proposta</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Dilemas Digitais | Desenvolvido por Alexandra Terezinha Kapusinski</p>
+    </footer>
+
+    <script>
+        const botoes = document.querySelectorAll(".btn-like");
+        
+        botoes.forEach(function (botao) {
+            let curtiu = false;
+            
+            botao.addEventListener("click", function () {
+                let contador = botao.querySelector("span");
+                
+                if (!curtiu) {
+                    contador.textContent = parseInt(contador.textContent) + 1;
+                    botao.classList.add("liked");
+                    curtiu = true;
+                } else {
+                    contador.textContent = parseInt(contador.textContent) - 1;
+                    botao.classList.remove("liked");
+                    curtiu = false;
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
